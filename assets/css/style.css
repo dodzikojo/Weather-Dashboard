@@ -1,13 +1,43 @@
+body {
+    background-color: #1c2331;
+
+}
 #today {
-    border: 2px solid red;
-    height: 100px;
+    /* background-color: #87CEEB; */
+    background-color: #5bc1e9;
+    opacity: 0.8;
+    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #5bc1e9 23px ), repeating-linear-gradient( #87CEEB55, #87CEEB );
 }
 
+
 #forecast {
-    border: 2px solid  green;
-    height: 200px;
+    /* border: 2px solid  green; */
 }
 
 .navbar-brand {
     font-size: 25;
+}
+
+#locationName {
+    font-size: 20px;
+    margin-bottom: 0px !important;
+}
+
+#lastUpdatedInfo {
+    font-size: 12px;
+}
+
+#currentDateTime {
+    font-size: 15px;
+
+}
+
+#temperature {
+    font-size: 60px;
+    font-weight: 500;
+    
+}
+
+#temperatureUnit {
+    font-size: 20px;
 }
