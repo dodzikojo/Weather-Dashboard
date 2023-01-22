@@ -11,29 +11,51 @@ body {
 
 
 #forecast {
-    /* border: 2px solid  green; */
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: auto auto auto auto auto;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "one two three four five";
+}
+
+#forecastOne {
+    position: relative;
+    grid-area: "one";
 }
 
 .navbar-brand {
     font-size: 25;
 }
 
+#mainDescription, #secondaryDescription, #currentDateTime {
+    font-size: 18px;
+}
+
 #locationName {
-    font-size: 20px;
+    font-size: 25px;
+    font-weight: bold;
     margin-bottom: 0px !important;
 }
 
 #lastUpdatedInfo {
     font-size: 12px;
+    margin-bottom: 0px;
 }
 
-#currentDateTime {
-    font-size: 15px;
-
+#historyWeatherImage {
+    width: 65px;
+    margin-bottom: 10px;
 }
+
+#mainWeatherImage {
+    width: 90px;
+    margin-bottom: 20px;
+}
+
 
 #temperature {
-    font-size: 60px;
+    font-size: 70px;
     font-weight: 500;
     
 }

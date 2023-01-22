@@ -31,32 +31,41 @@
   <!-- max-width for ultra wide resolutions -->
   <div class="container">
     <div class="row">
-      <aside id="search-panel" class="col-lg-3 pb-3 mt-3">
+      <div id="search-panel" class="col-12 pb-3 mt-3">
         <!-- <hr> -->
-        <div class="list-group" id="history">
-          <button class="btn btn-dark btn-block">Berlin</button>
-          <button class="btn btn-dark btn-block">Paris</button>
-          <button class="btn btn-dark btn-block">Edinburgh</button>
-          <button class="btn btn-dark btn-block">Madrid</button>
-          <button class="btn btn-dark btn-block">Birmingham</button>
-          <button class="btn btn-dark btn-block">London</button>
+        <div class="btn-group" id="history">
+          <button class="btn btn-dark">Berlin</button>
+          <button class="btn btn-dark">Paris</button>
+          <button class="btn btn-dark">Edinburgh</button>
+          <button class="btn btn-dark">Madrid</button>
+          <button class="btn btn-dark">Birmingham</button>
+          <button class="btn btn-dark">London</button>
         </div>
-      </aside>
+      </div>
 
-      <div id="weather-panel" class="col-lg-9  mt-3">
+      <div id="weather-panel" class="col-12">
         <section id="today" class="p-2 rounded" role="region" aria-live="polite">
           <div class="row">
-            <div id="locationName" class="col-12">
-              Royal Tunbridge Wells, England
+          
+            <div class="">
+              <p id="locationName" class="col-12">
+                Royal Tunbridge Wells, England
+              </p>
+              <p id="lastUpdatedInfo" class="col-12">
+                Updated over an hour ago
+              </p>
             </div>
-            <div id="lastUpdatedInfo" class="col-12">
-              Updated over an hour ago
-            </div>
+           
+
             <div class="col-12 row">
+              <div>
+
+              </div>
               <div id="temperature" class="col-6">
                 2<span id="temperatureUnit">°C</span>
+                <img id="mainWeatherImage" class="" src="assets/images/cloudy.png">
               </div>
-              <div class="col-6">
+              <div class="col-6 ">
                 <p class="additionalInfo pt-0 pb-0 mt-0 mb-0">Feels like:<span id="feelLikeValue"></span></p>
                 <p class="additionalInfo pt-0 pb-0 mt-0 mb-0">Humidity:<span id="humidityValue"></span></p>
                 <p class="additionalInfo pt-0 pb-0 mt-0 mb-0">Sunrise:<span id="sunriseTime"></span></p>
@@ -67,7 +76,7 @@
             <div class="col-12">
 
               <p id="mainDescription" class="px-0 col-6 d-inline">Rain</p>
-              <p id="mainDescription" class="px-0 col-6 d-inline">(Light Rain)</p>
+              <p id="secondaryDescription" class="px-0 col-6 d-inline">(Light Rain)</p>
               <p class="d-inline">|</p>
               <p id="currentDateTime" class="col-6 pl-0 d-inline">Sun 22, 17:00</p>
 
@@ -75,27 +84,73 @@
             </div>
           </div>
         </section>
-        <section id="forecast" class="mt-3 " role="region" aria-live="polite">
-          <h5 class="text-light">5-Day Forecast:</h5>
-          
-          <div class="row">
-            <div class="col-3">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <section class="mt-3 " role="region" aria-live="polite">
+          <h4 class="text-light">5-Day Forecast:</h4>
+          <div id="forecast">
+
+            <div class="card" id="forecastOne">
+              <div class="card-body bg-dark text-white p-3">
+                <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
+                <h5 class="card-title">Monday, 21st Jan</h5>
+               
+                <div class="card-text d-inline">
+                  <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
+                  <p class="py-0 m-0">Wind: <span>2.76 KPH</span></p>
+                  <p class="py-0 m-0">Humidity: <span>44%</span></p>
                 </div>
               </div>
             </div>
-            <div class="col-3">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <div class="card" id="forecastOne">
+              <div class="card-body bg-dark text-white p-3">
+                <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
+                <h5 class="card-title">Tuesday, 22nd Jan</h5>
+               
+                <div class="card-text d-inline">
+                  <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
+                  <p class="py-0 m-0">Wind: <span>2.76 KPH</span></p>
+                  <p class="py-0 m-0">Humidity: <span>44%</span></p>
+                </div>
+              </div>
+            </div>
+            <div class="card" id="forecastOne">
+              <div class="card-body bg-dark text-white p-3">
+                <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
+                <h5 class="card-title">Wednesday, 23rd Jan</h5>
+               
+                <div class="card-text d-inline">
+                  <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
+                  <p class="py-0 m-0">Wind: <span>2.76 KPH</span></p>
+                  <p class="py-0 m-0">Humidity: <span>44%</span></p>
+                </div>
+              </div>
+            </div>
+            <div class="card" id="forecastOne">
+              <div class="card-body bg-dark text-white p-3">
+                <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
+                <h5 class="card-title">Thursday, 24th Jan</h5>
+               
+                <div class="card-text d-inline">
+                  <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
+                  <p class="py-0 m-0">Wind: <span>2.76 KPH</span></p>
+                  <p class="py-0 m-0">Humidity: <span>44%</span></p>
+                </div>
+              </div>
+            </div>
+            <div class="card" id="forecastOne">
+              <div class="card-body bg-dark text-white p-3">
+                <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
+                <h5 class="card-title">Friday, 25th Jan</h5>
+               
+                <div class="card-text d-inline">
+                  <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
+                  <p class="py-0 m-0">Wind: <span>2.76 KPH</span></p>
+                  <p class="py-0 m-0">Humidity: <span>44%</span></p>
                 </div>
               </div>
             </div>
           </div>
+
+
 
         </section>
       </div>
