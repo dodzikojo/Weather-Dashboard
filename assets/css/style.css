@@ -1,0 +1,13 @@
+#today {
+    border: 2px solid red;
+    height: 100px;
+}
+
+#forecast {
+    border: 2px solid  green;
+    height: 200px;
+}
+
+.navbar-brand {
+    font-size: 25;
+}

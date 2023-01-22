@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <title>Weather Dashboard</title>
+</head>
+
+<body>
+  <header id="header-bar" class="">
+    <nav class="navbar navbar-light bg-light">
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="London" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <a class="navbar-brand h2">Weather Dashboard</a>
+    </nav>
+  </header>
+
+  <!-- max-width for ultra wide resolutions -->
+  <div class="container-fluid" style="max-width: 1400px">
+    <div class="row">
+      <aside id="search-panel" class="col-lg-3 pb-3 mt-3">
+       
+        <!-- <form>
+          <div id="search-form" class="form-group">
+            <label class="h3" for="locationSearch">Search for a City:</label>
+            <input placeholder="London" type="location" class="form-control" id="locationSearch" aria-describedby="location-search">
+          
+          </div>
+          <button type="submit" id="search-button"
+          aria-label="submit search" class="btn btn-primary btn-block">Search</button>
+        </form> -->
+
+
+        <!-- <hr> -->
+        <div class="list-group" id="history">
+          <button class="btn btn-secondary btn-block">Berlin</button>
+          <button class="btn btn-secondary btn-block">Paris</button>
+          <button class="btn btn-secondary btn-block">Edinburgh</button>
+          <button class="btn btn-secondary btn-block">Madrid</button>
+          <button class="btn btn-secondary btn-block">Birmingham</button>
+          <button class="btn btn-secondary btn-block">London</button>
+        </div>
+      </aside>
+
+      <div id="weather-panel" class="col-lg-9  mt-3 pl-0">
+        <section id="today" class="" role="region" aria-live="polite">
+
+        </section>
+        <section id="forecast" class="mt-2" role="region" aria-live="polite">
+
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- Moment.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/assets/js/script.js"></script>
+</body>
+
+</html>
