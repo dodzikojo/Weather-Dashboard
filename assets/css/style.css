@@ -2,34 +2,65 @@ body {
     background-color: #1c2331;
 
 }
+
 #today {
     /* background-color: #87CEEB; */
     background-color: #5bc1e9;
     opacity: 0.8;
-    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #5bc1e9 23px ), repeating-linear-gradient( #87CEEB55, #87CEEB );
+    background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #5bc1e9 23px), repeating-linear-gradient(#87CEEB55, #87CEEB);
 }
 
 
 #forecast {
     display: grid;
     column-gap: 10px;
+    row-gap: 10px;
     grid-template-columns: auto auto auto auto auto;
     grid-template-rows: auto;
-    grid-template-areas: 
-    "one two three four five";
+    grid-template-areas:
+        "one two three four five";
+}
+
+#forecastOne,
+#forecastTwo,
+#forecastThree,
+#forecastFour,
+#forecastFive {
+    position: relative;
+
 }
 
 #forecastOne {
-    position: relative;
     grid-area: "one";
+}
+
+#forecastTwo {
+    grid-area: "two";
+}
+
+#forecastThree {
+    grid-area: "three";
+}
+
+#forecastFour {
+    grid-area: "four";
+}
+
+#forecastFive {
+    grid-area: "five";
 }
 
 .navbar-brand {
     font-size: 25;
 }
 
-#mainDescription, #secondaryDescription, #currentDateTime {
+#mainDescription,
+#secondaryDescription,
+#currentDateTime {
     font-size: 18px;
+}
+
+#history {
 }
 
 #locationName {
@@ -57,9 +88,44 @@ body {
 #temperature {
     font-size: 70px;
     font-weight: 500;
-    
+
 }
 
 #temperatureUnit {
     font-size: 20px;
 }
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    #forecast {
+        grid-template-columns: 100%;
+        grid-template-rows: auto auto auto auto auto;
+        grid-template-areas:
+            "one"
+            "two"
+            "three"
+            "four"
+            "five";
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    #forecast {
+        /* grid-template-columns: 50% 50%;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "one"
+            "two"
+            "three"
+            "four"
+            "five"; */
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}

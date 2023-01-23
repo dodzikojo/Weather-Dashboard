@@ -23,3 +23,4 @@ function testGeoCoding(){
 function successFn(result) {
     console.log("Result: "+result)
 }
+
