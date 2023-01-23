@@ -19,21 +19,22 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
       <div class="container">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-  
+
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
         </div>
         <a class="navbar-brand h2 text-light ">Weather Dashboard</a>
-        <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler bg-light" type="button" data-toggle="collapse"
+          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-  
-      
+
+
       </div>
-      
+
     </nav>
     <!-- <nav class="navbar navbar-dark bg-dark">
       <div class="container">
@@ -54,50 +55,49 @@
     <div class="row">
       <div id="search-panel" class="col-12 pb-3 mt-3 ">
         <!-- <hr> -->
-       
-          <div class="btn-group row col-12 mx-auto" id="history">
-            <button class="btn btn-dark">Berlin</button>
-            <button class="btn btn-dark">Paris</button>
-            <button class="btn btn-dark">Edinburgh</button>
-            <button class="btn btn-dark">Madrid</button>
-            <button class="btn btn-dark">Birmingham</button>
-            <button class="btn btn-dark">London</button>
-        
+
+        <div class="btn-group row col-12 mx-auto" id="history">
+          <button class="btn btn-dark">Berlin</button>
+          <button class="btn btn-dark">Paris</button>
+          <button class="btn btn-dark">Edinburgh</button>
+          <button class="btn btn-dark">Madrid</button>
+          <button class="btn btn-dark">Birmingham</button>
+          <button class="btn btn-dark">London</button>
+
         </div>
-      
+
       </div>
 
       <div id="weather-panel" class="col-12">
         <section id="today" class="p-2 rounded" role="region" aria-live="polite">
-          <div class="row">
+          <div id="mainWeatherDash" class="">
 
-            <div class="">
-              <p id="locationName" class="col-12">
+            <div id="locationInfo" class="">
+              <p id="locationName" class="">
                 Royal Tunbridge Wells, England
               </p>
-              <p id="lastUpdatedInfo" class="col-12">
+              <p id="lastUpdatedInfo" class="">
                 Updated over an hour ago
               </p>
             </div>
 
 
-            <div class="col-12 row">
-              <div>
 
-              </div>
-              <div id="temperature" class="col-6">
-                2<span id="temperatureUnit">°C</span>
+            <div class="float-end" id="mainWeatherForecast">
+              <div id="temperature" class="">
+                <p class="d-inline">2</p><span id="temperatureUnit" class="d-inline">°C</span>
                 <img id="mainWeatherImage" class="" src="assets/images/cloudy.png">
               </div>
-              <div class="col-6 ">
-                <p class="additionalInfo pt-0 pb-0 mt-0 mb-0">Feels like:<span id="feelLikeValue"></span></p>
-                <p class="additionalInfo pt-0 pb-0 mt-0 mb-0">Humidity:<span id="humidityValue"></span></p>
-                <p class="additionalInfo pt-0 pb-0 mt-0 mb-0">Sunrise:<span id="sunriseTime"></span></p>
-                <p class="additionalInfo pt-0 pb-0 mt-0 mb-0">Sunset:<span id="sunsetTime"></span></p>
+              <div id="additionalInfo" class="">
+                <p class="pt-0 pb-0 mt-0 mb-0">Feels like:<span id="feelLikeValue"></span></p>
+                <p class="pt-0 pb-0 mt-0 mb-0">Humidity:<span id="humidityValue"></span></p>
+                <p class="pt-0 pb-0 mt-0 mb-0">Sunrise:<span id="sunriseTime"></span></p>
+                <p class="pt-0 pb-0 mt-0 mb-0">Sunset:<span id="sunsetTime"></span></p>
               </div>
             </div>
 
-            <div class="col-12">
+
+            <div id="descriptionDash" class="">
 
               <p id="mainDescription" class="px-0 col-6 d-inline">Rain</p>
               <p id="secondaryDescription" class="px-0 col-6 d-inline">(Light Rain)</p>
@@ -117,7 +117,7 @@
                 <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
                 <h5 class="card-title">Monday, 21st Jan</h5>
 
-                <div class="card-text d-inline">
+                <div class="card-text d-inline forecastDetails">
                   <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
                   <p class="py-0 m-0">Wind: <span>2.76 KPH</span></p>
                   <p class="py-0 m-0">Humidity: <span>44%</span></p>
@@ -129,7 +129,7 @@
                 <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
                 <h5 class="card-title">Tuesday, 22nd Jan</h5>
 
-                <div class="card-text d-inline">
+                <div class="card-text d-inline forecastDetails">
                   <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
                   <p class="py-0 m-0">Wind: <span>2.76 KPH</span></p>
                   <p class="py-0 m-0">Humidity: <span>44%</span></p>
@@ -141,7 +141,7 @@
                 <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
                 <h5 class="card-title">Wednesday, 23rd Jan</h5>
 
-                <div class="card-text d-inline">
+                <div class="card-text d-inline forecastDetails">
                   <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
                   <p class="py-0 m-0">Wind: <span>2.76 KPH</span></p>
                   <p class="py-0 m-0">Humidity: <span>44%</span></p>
@@ -153,7 +153,7 @@
                 <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
                 <h5 class="card-title">Thursday, 24th Jan</h5>
 
-                <div class="card-text d-inline">
+                <div class="card-text d-inline forecastDetails">
                   <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
                   <p class="py-0 m-0">Wind: <span>2.76 KPH</span></p>
                   <p class="py-0 m-0">Humidity: <span>44%</span></p>
@@ -165,7 +165,7 @@
                 <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
                 <h5 class="card-title">Friday, 25th Jan</h5>
 
-                <div class="card-text d-inline">
+                <div class="card-text d-inline forecastDetails">
                   <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
                   <p class="py-0 m-0">Wind: <span>2.76 KPH</span></p>
                   <p class="py-0 m-0">Humidity: <span>44%</span></p>
