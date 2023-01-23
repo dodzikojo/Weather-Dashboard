@@ -69,45 +69,52 @@
       </div>
 
       <div id="weather-panel" class="col-12">
-        <section id="today" class="p-2 rounded" role="region" aria-live="polite">
-          <div id="mainWeatherDash" class="">
+        <!-- <section id="today" class="p-2 rounded" role="region" aria-live="polite"> -->
+        <section id="mainWeatherDash" class="p-2 rounded">
 
-            <div id="locationInfo" class="">
-              <p id="locationName" class="">
-                Royal Tunbridge Wells, England
-              </p>
-              <p id="lastUpdatedInfo" class="">
-                Updated over an hour ago
-              </p>
+          <div class="d-flex h-100 mr-2" id="mainWeatherForecast">
+            <div id="temperature" class="justify-content-center align-self-center">
+              <p class="d-inline">2</p><span id="temperatureUnit" class="d-inline">°C</span>
+              <img id="mainWeatherImage" class="" src="assets/images/cloudy.png">
             </div>
 
 
+          </div>
 
-            <div class="float-end" id="mainWeatherForecast">
-              <div id="temperature" class="">
-                <p class="d-inline">2</p><span id="temperatureUnit" class="d-inline">°C</span>
-                <img id="mainWeatherImage" class="" src="assets/images/cloudy.png">
-              </div>
-              <div id="additionalInfo" class="">
-                <p class="pt-0 pb-0 mt-0 mb-0">Feels like:<span id="feelLikeValue"></span></p>
-                <p class="pt-0 pb-0 mt-0 mb-0">Humidity:<span id="humidityValue"></span></p>
-                <p class="pt-0 pb-0 mt-0 mb-0">Sunrise:<span id="sunriseTime"></span></p>
-                <p class="pt-0 pb-0 mt-0 mb-0">Sunset:<span id="sunsetTime"></span></p>
-              </div>
-            </div>
-
-
-            <div id="descriptionDash" class="">
-
+          <div id="locationInfo" class="">
+            <p id="locationName" class="">
+              Royal Tunbridge Wells, England
+            </p>
+            <p id="currentDateTime" class="pl-0 d-inline font-weight-bold">Sun 22, 17:00</p>
+            <p class="d-inline">•</p>
+            <p id="lastUpdatedInfo" class="d-inline font-weight-light font-italic">
+              Updated over an hour ago
+            </p>
+            <hr>
+            <div id="descriptionDash" class="d-inline font-weight-bold">
               <p id="mainDescription" class="px-0 col-6 d-inline">Rain</p>
               <p id="secondaryDescription" class="px-0 col-6 d-inline">(Light Rain)</p>
-              <p class="d-inline">|</p>
-              <p id="currentDateTime" class="col-6 pl-0 d-inline">Sun 22, 17:00</p>
+              <p class="d-inline">•</p>
+            </div>
 
-
+            <div id="additionalInfo" class="d-inline">
+              <p class="pt-0 pb-0 mt-0 mb-0 d-inline">Feels like: <span id="feelLikeValue">18.89°C</span></p>
+              <p class="d-inline">•</p>
+              <p class="pt-0 pb-0 mt-0 mb-0 d-inline">Wind: <span id="windValue">2.76 KPH</span></p>
+              <p class="d-inline">•</p>
+              <p class="pt-0 pb-0 mt-0 mb-0 d-inline">Humidity: <span id="humidityValue">44%</span></p>
             </div>
           </div>
+
+
+
+
+
+
+
+
         </section>
+        <!-- </section> -->
         <section class="mt-3 " role="region" aria-live="polite">
           <h4 class="text-light">5-Day Forecast:</h4>
           <div id="forecast">

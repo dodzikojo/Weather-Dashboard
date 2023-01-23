@@ -3,21 +3,13 @@ body {
 
 }
 
-#today {
-    /* background-color: #87CEEB; */
+#mainWeatherDash {
     background-color: #5bc1e9;
     opacity: 0.8;
     background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #5bc1e9 23px), repeating-linear-gradient(#87CEEB55, #87CEEB);
+    display: grid;
 }
 
-#mainWeatherDash {
-    display: grid;
-    grid-template-rows: "auto auto auto";
-    grid-template-areas: 
-    "locationInfo"
-    "mainWeatherForecast"
-    "descriptionInfo"
-}
 
 #locationInfo {
     position: relative;
@@ -29,36 +21,26 @@ body {
     grid-area: mainWeatherForecast;
 }
 
-#descriptionInfo {
-    position: relative;
-    grid-area: descriptionInfo;
-}
 
 
 
-#mainWeatherForecast {
+/* #mainWeatherForecast {
     display: grid;
     grid-template-columns: 80% auto;
     grid-template-rows: auto;
     grid-template-areas: 
         "mainInfo additionalInfo";
-}
+} */
 
 #temperature {
     position: relative;
     grid-area: "mainInfo";
-    font-size: 70px;
+    font-size: 80px;
     font-weight: 500;
     padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;
 }
 
-#additionalInfo {
-    margin-top: 7px;
-    position: relative;
-    grid-area: additionalInfo;
-    font-size: 14px;
-}
 
 
 #forecast {
@@ -122,7 +104,7 @@ body {
 }
 
 #lastUpdatedInfo {
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 0px;
 }
 
@@ -132,7 +114,7 @@ body {
 }
 
 #mainWeatherImage {
-    width: 80px;
+    width: 70px;
     margin-bottom: 20px;
 }
 
@@ -154,6 +136,15 @@ body {
             "three four"
             "five six";
     } 
+
+    #mainWeatherDash {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: "auto";
+        grid-template-areas: 
+        "mainWeatherForecast"
+        "locationInfo"
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -165,6 +156,13 @@ body {
             "one two"
             "three four"
             "five six";
+    }
+
+    #mainWeatherDash {
+        grid-template-columns: auto 1fr;
+        grid-template-rows: "auto";
+        grid-template-areas: 
+        "mainWeatherForecast locationInfo"
     }
 }
 
@@ -179,10 +177,27 @@ body {
         grid-template-areas:
             "one two three four five";
     }
+
+    #mainWeatherDash {
+        grid-template-columns: auto 1fr;
+        grid-template-rows: "auto";
+        grid-template-areas: 
+        "mainWeatherForecast locationInfo"
+    }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+
+
+    #mainWeatherDash {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: "auto";
+        grid-template-areas: 
+        "mainWeatherForecast locationInfo"
+    }
+
     #forecast {
         display: grid;
         column-gap: 10px;
