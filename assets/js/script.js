@@ -9,20 +9,11 @@ let geoCodingAPI = "http://api.openweathermap.org/geo/1.0/direct?q={city name},{
 var moment = require("moment")
 var citites = require("cities.json")
 
+console.log(moment)
 console.log(citites)
 
+testGeoCoding()
 
-// console.log(moment)
-
-// testGeoCoding()
-// getCitiesList()
-
-function getWeatherData() {
-    
-    
-
-    $.getJSON(flickrAPI, successFn)
-}
 
 function testGeoCoding(){
     $.getJSON("http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid="+APIKey, successFn)
