@@ -6,7 +6,16 @@ let openWeatherMapAPI = "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon=
 let geoCodingAPI = "http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid="+APIKey
 
 
-testGeoCoding()
+var moment = require("moment")
+var citites = require("cities.json")
+
+console.log(citites)
+
+
+// console.log(moment)
+
+// testGeoCoding()
+// getCitiesList()
 
 function getWeatherData() {
     
@@ -24,3 +33,9 @@ function successFn(result) {
     console.log("Result: "+result)
 }
 
+
+$("form").submit(function (event) {
+    event.preventDefault();
+
+    console.log("form submitted");
+})

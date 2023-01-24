@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
-  
+
   <title>Weather Dashboard</title>
 </head>
 
@@ -42,33 +42,23 @@
   <!-- max-width for ultra wide resolutions -->
   <div class="container">
     <div class="row">
-      <!-- <div id="search-panel" class="col-12 mb-3 mt-3 "> -->
-        
-
-        <div class="mx-auto row btn-group col-12 my-2" id="historyButtons">
-          <button type="button" class="btn btn-dark my-1">Berlin <span class="font-weight-bold">6°C</span></button>
-          <button type="button" class="btn btn-dark my-1">Paris <span class="font-weight-bold">8°C</span></button>
-          <button type="button" class="btn btn-dark my-1">Edinburgh <span class="font-weight-bold">-2°C</span></button>
-          <button type="button" class="btn btn-dark my-1">Madrid <span class="font-weight-bold">12°C</span></button>
-          <button type="button" class="btn btn-dark my-1">Birmingham <span class="font-weight-bold">6°C</span></button>
-          <button type="button" class="btn btn-dark my-1">London <span class="font-weight-bold">18°C</span></button>
-        </div>
-
-      <!-- </div> -->
+      <div class="mx-auto row btn-group col-12 my-2" id="historyButtons">
+        <button type="button" class="btn btn-dark my-1">Berlin <span class="font-weight-bold">6°C</span></button>
+        <button type="button" class="btn btn-dark my-1">Paris <span class="font-weight-bold">8°C</span></button>
+        <button type="button" class="btn btn-dark my-1">Edinburgh <span class="font-weight-bold">-2°C</span></button>
+        <button type="button" class="btn btn-dark my-1">Madrid <span class="font-weight-bold">12°C</span></button>
+        <button type="button" class="btn btn-dark my-1">Birmingham <span class="font-weight-bold">6°C</span></button>
+        <button type="button" class="btn btn-dark my-1">London <span class="font-weight-bold">18°C</span></button>
+      </div>
 
       <div id="weather-panel" class="col-12">
-        <!-- <section id="today" class="p-2 rounded" role="region" aria-live="polite"> -->
         <section id="mainWeatherDash" class="p-2 rounded">
-
           <div class="d-flex h-100 mr-2" id="mainWeatherForecast">
             <div id="temperature" class="justify-content-center align-self-center">
               <p class="d-inline">2</p><span id="temperatureUnit" class="d-inline">°C</span>
               <img id="mainWeatherImage" class="" src="assets/images/cloudy.png">
             </div>
-
-
           </div>
-
           <div id="locationInfo" class="">
             <p id="locationName" class="">
               Royal Tunbridge Wells, England
@@ -84,7 +74,6 @@
               <p id="secondaryDescription" class="px-0 col-6 d-inline">(Light Rain)</p>
               <p class="d-inline">•</p>
             </div>
-
             <div id="additionalInfo" class="d-inline">
               <p class="pt-0 pb-0 mt-0 mb-0 d-inline">Feels like: <span id="feelLikeValue">18.89°C</span></p>
               <p class="d-inline">•</p>
@@ -93,39 +82,27 @@
               <p class="pt-0 pb-0 mt-0 mb-0 d-inline">Humidity: <span id="humidityValue">44%</span></p>
             </div>
           </div>
-
-
-
-
-
-
-
-
         </section>
         <!-- </section> -->
         <section class="mt-3 " role="region" aria-live="polite">
           <h4 class="text-light">5-Day Forecast:</h4>
           <div id="forecast">
-
-            
-              <div class="card bg-dark text-white" id="forecastOne">
-                <div class="card-body p-3">
-                  <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
-                  <h5 id="historyWeatherDate" class="mb-1">Monday, 21st Jan</h5>
-                  <hr class="py-0 mt-0 mb-1" id="historyWeatherSplitLine">
-                  <div class="card-text d-inline forecastDetails">
-                    <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
-                    <p class="py-0 m-0">Wind: <span>2.76 KPH</span></p>
-                    <p class="py-0 m-0">Humidity: <span>44%</span></p>
-                  </div>
-                </div>
-              </div>
-           
-           
-              <div class="card bg-dark text-white" id="forecastTwo">
+            <div class="card bg-dark text-white" id="forecastOne">
               <div class="card-body p-3">
                 <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
-                <h5 id="historyWeatherDate"class="mb-1">Tuesday, 22nd Jan</h5>
+                <h5 id="historyWeatherDate" class="mb-1">Monday, 21st Jan</h5>
+                <hr class="py-0 mt-0 mb-1" id="historyWeatherSplitLine">
+                <div class="card-text d-inline forecastDetails">
+                  <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
+                  <p class="py-0 m-0">Wind: <span>2.76 KPH</span></p>
+                  <p class="py-0 m-0">Humidity: <span>44%</span></p>
+                </div>
+              </div>
+            </div>
+            <div class="card bg-dark text-white" id="forecastTwo">
+              <div class="card-body p-3">
+                <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
+                <h5 id="historyWeatherDate" class="mb-1">Tuesday, 22nd Jan</h5>
                 <hr class="py-0 mt-0 mb-1" id="historyWeatherSplitLine">
                 <div class="card-text d-inline forecastDetails">
                   <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
@@ -137,7 +114,7 @@
             <div class="card bg-dark text-white" id="forecastThree">
               <div class="card-body p-3">
                 <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
-                <h5 id="historyWeatherDate"class="mb-1">Wednesday, 23rd Jan</h5>
+                <h5 id="historyWeatherDate" class="mb-1">Wednesday, 23rd Jan</h5>
                 <hr class="py-0 mt-0 mb-1" id="historyWeatherSplitLine">
                 <div class="card-text d-inline forecastDetails">
                   <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
@@ -149,7 +126,7 @@
             <div class="card bg-dark text-white" id="forecastFour">
               <div class="card-body p-3">
                 <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
-                <h5 id="historyWeatherDate"class="mb-1">Thursday, 24th Jan</h5>
+                <h5 id="historyWeatherDate" class="mb-1">Thursday, 24th Jan</h5>
                 <hr class="py-0 mt-0 mb-1" id="historyWeatherSplitLine">
                 <div class="card-text d-inline forecastDetails">
                   <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
@@ -161,7 +138,7 @@
             <<div class="card bg-dark text-white" id="forecastFive">
               <div class="card-body p-3">
                 <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
-                <h5 id="historyWeatherDate"class="mb-1">Friday, 25th Jan</h5>
+                <h5 id="historyWeatherDate" class="mb-1">Friday, 25th Jan</h5>
                 <hr class="py-0 mt-0 mb-1" id="historyWeatherSplitLine">
                 <div class="card-text d-inline forecastDetails">
                   <p class="py-0 m-0">Temp: <span>18.89°C</span></p>
@@ -169,14 +146,11 @@
                   <p class="py-0 m-0">Humidity: <span>44%</span></p>
                 </div>
               </div>
-            </div>
           </div>
-
-
-
-        </section>
       </div>
+      </section>
     </div>
+  </div>
   </div>
 
   <!-- Moment.js -->
@@ -190,7 +164,7 @@
     crossorigin="anonymous"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="/assets/js/script.js"></script>
+  <script  src="/assets/js/bundle.js"></script>
 </body>
 
 </html>
