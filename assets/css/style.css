@@ -23,6 +23,9 @@ body {
 
 }
 
+#navbarSupportedContent {
+    flex-grow: unset;
+}
 
 #locationInfo {
     position: relative;
@@ -119,6 +122,19 @@ body {
     font-size: 15px;
 }
 
+
+#currentDateTime, #lastUpdatedInfo {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* #lastUpdatedInfo {
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+ */
+
+
 #historyWeatherDate {
     font-size: 1rem;
     font-weight: 500;
@@ -141,10 +157,6 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-#lastUpdatedInfo {
-    font-size: 14px;
-    margin-bottom: 0px;
-}
 
 #historyWeatherImage {
     width: 65px;
