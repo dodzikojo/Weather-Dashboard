@@ -36,7 +36,14 @@ body {
 }
 
 
+#historyButtons>button {
 
+    width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
 
 /* #mainWeatherForecast {
     display: grid;
