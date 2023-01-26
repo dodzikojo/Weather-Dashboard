@@ -78,37 +78,36 @@ body {
         "one two three four five";
 } */
 
-#forecastOne,
-#forecastTwo,
-#forecastThree,
-#forecastFour,
-#forecastFive {
+#forecast1,
+#forecast2,
+#forecast3,
+#forecast4,
+#forecast5 {
     position: relative;
     border-color: white;
-
 }
 
 .forecastDetails {
     font-size: 13px;
 }
 
-#forecastOne {
+#forecast1 {
     grid-area: one;
 }
 
-#forecastTwo {
+#forecast2 {
     grid-area: two;
 }
 
-#forecastThree {
+#forecast3 {
     grid-area: three;
 }
 
-#forecastFour {
+#forecast4 {
     grid-area: four;
 }
 
-#forecastFive {
+#forecast5 {
     grid-area: five;
 }
 
@@ -135,7 +134,7 @@ body {
  */
 
 
-#historyWeatherDate {
+.forecastWeatherDate {
     font-size: 1rem;
     font-weight: 500;
 }
@@ -144,7 +143,7 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-#historyWeatherSplitLine {
+.forecastWeatherSplitLine {
     background-color: grey;
     opacity: 30%;
 }
@@ -158,7 +157,7 @@ body {
 }
 
 
-#historyWeatherImage {
+.forecastWeatherImage {
     width: 65px;
     margin-bottom: 10px;
 }
@@ -183,7 +182,7 @@ body {
 
 
 #temperatureUnit {
-    font-size: 20px;
+    font-size: 30px;
 }
 
 /* Extra small devices (phones, 600px and down) */
