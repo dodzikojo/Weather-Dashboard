@@ -67,16 +67,16 @@ body {
 
 
 
-#forecast {
+/* #forecast {
     display: grid;
     column-gap: 10px;
     row-gap: 10px;
     font-family: 'Montserrat', sans-serif;
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: 25% 25% 25% 25% 25%;
     grid-template-rows: auto;
     grid-template-areas:
         "one two three four five";
-}
+} */
 
 #forecastOne,
 #forecastTwo,
@@ -118,12 +118,12 @@ body {
 
 #mainDescription,
 #secondaryDescription,
-#currentDateTime {
+#weatherDateTime {
     font-size: 15px;
 }
 
 
-#currentDateTime, #lastUpdatedInfo {
+#weatherDateTime, #lastUpdatedInfo {
     font-size: 12px;
     font-weight: 500;
 }
@@ -279,7 +279,7 @@ body {
     #mainWeatherDash {
         display: grid;
         grid-template-columns: auto 1fr;
-        grid-template-rows: "auto";
+        grid-template-rows: 100%;
         grid-template-areas:
             "mainWeatherForecast locationInfo"
     }
@@ -288,7 +288,7 @@ body {
         display: grid;
         column-gap: 10px;
         row-gap: 10px;
-        grid-template-columns: auto auto auto auto auto;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         grid-template-rows: auto;
         grid-template-areas:
             "one two three four five";
