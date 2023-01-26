@@ -1,6 +1,6 @@
 const APIKey = "234dd37d46a1b4a430f58520a10e1039"
 const openWeatherMapForecastAPI = "https://api.openweathermap.org/data/2.5/forecast";
-const openWeatherMapReverseGeocodingAPI = "http://api.openweathermap.org/geo/1.0/reverse?";
+const openWeatherMapReverseGeocodingAPI = "https://api.openweathermap.org/geo/1.0/reverse?";
 
 
 
