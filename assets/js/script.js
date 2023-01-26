@@ -3,14 +3,28 @@ let allPossibleCities = [];
 let moment = require("moment")
 let cities = require("cities.json")
 
-let locationName = $("#locationName");
-let temperature = $("#temperature");
-var mainDescription = $("#mainDescription");
-var secondaryDescription = $("#secondaryDescription");
+let locationNameEl = $("#locationName");
+let temperatureEl = $("#temperature");
+let mainDescriptionEl = $("#mainDescription");
+let secondaryDescriptionEl = $("#secondaryDescription");
+let feelsLikeValueEl = $("#feelLikeValue");
+let windSpeedEl = $("#windValue");
+let humidityValueEl = $("#humidityValue");
+let mainWeatherImageEl = $("#mainWeatherImage");
+let faviconEl = $("#favicon");
+let pageTitleEl = $("#pageTitle");
+
+console.log(faviconEl)
 
 let mainWeatherData;
 
-// getJSONWeatherData(5.55602, -0.1969)
+//Get previously saved city information and load it's weather data.
+$("document").ready(function() {
+    let historicCity = localStorage.getItem("lastWeatherData");
+    if(historicCity != null){
+        getWeatherDataFromCityCountryName(JSON.parse(historicCity), cities)
+    }
+});
 
 function getJSONWeatherData(lat, lon) {
     var openWeatherMapAPI = "https://api.openweathermap.org/data/2.5/forecast";
@@ -18,8 +32,10 @@ function getJSONWeatherData(lat, lon) {
     $.getJSON(openWeatherMapAPI, {
         lat: lat,
         lon: lon,
-        APIKey: APIKey
+        APIKey: APIKey,
+        units:"metric",
     }, successFn)
+
 }
 
 function successFn(result) {
@@ -57,23 +73,34 @@ function successFn(result) {
 
 
 
-
+//Submit event when a city is selected.
 $("form").submit(function (event) {
     event.preventDefault();
-    var array = $('#searchBar').val().split(', ');
+    var cityCountryArray = $('#searchBar').val().split(', ');
+    getWeatherDataFromCityCountryName(cityCountryArray, cities)
+})
+
+function getWeatherDataFromCityCountryName(cityCountryArray, cities){
     for (let index = 0; index < cities.length; index++) {
-        if (cities[index].name.toLowerCase() === array[0].toLowerCase().trim() && cities[index].country.toLowerCase() === array[1].toLowerCase().trim()) {
+        if (cities[index].name.toLowerCase() === cityCountryArray[0].toLowerCase().trim() && cities[index].country.toLowerCase() === cityCountryArray[1].toLowerCase().trim()) {
             getJSONWeatherData(cities[index].lat, cities[index].lng)
-            locationName.text(cities[index].name + ", " + cities[index].country)
-            break;
+            locationNameEl.text(cities[index].name + ", " + cities[index].country)
+
+            //save searched information to localstorage
+            localStorage.setItem("lastWeatherData",JSON.stringify(cityCountryArray));
+            break; //No need to continue searching.
         }
 
     }
-    
-})
+}
 
+function setWeatherIcon(iconCode, iconImgEl) {
+    iconImgEl.attr("src", "./././assets/images/"+iconCode+".png" )
+}
 
-
+function setWeatherFavicon(iconCode, iconImgEl) {
+    iconImgEl.attr("href", "./././assets/images/"+iconCode+".png" )
+}
 
 $("#searchBar").keyup(function (e) {
     allPossibleCities = []
@@ -97,9 +124,15 @@ function onlyUnique(value, index, self) {
 }
 
 function updateHTMLElements () {
-    temperature.text(convertKelvinToCelsius(mainWeatherData.list[0].main.temp).toFixed(0));
-    mainDescription.text(mainWeatherData.list[0].weather[0].main);
-    secondaryDescription.text("("+mainWeatherData.list[0].weather[0].description+")");
+    temperatureEl.text(mainWeatherData.list[0].main.temp.toFixed());
+    feelsLikeValueEl.text(mainWeatherData.list[0].main.feels_like.toFixed(0)+" °C");
+    mainDescriptionEl.text(mainWeatherData.list[0].weather[0].main);
+    secondaryDescriptionEl.text("("+mainWeatherData.list[0].weather[0].description+")");
+    windSpeedEl.text(mainWeatherData.list[0].wind.speed+" KMPH");
+    humidityValueEl.text(mainWeatherData.list[0].main.humidity+" %");
+    pageTitleEl.text(mainWeatherData.list[0].main.temp.toFixed(0)+" °C");
+    setWeatherIcon(mainWeatherData.list[0].weather[0].icon, mainWeatherImageEl)
+    setWeatherFavicon(mainWeatherData.list[0].weather[0].icon, faviconEl)
 }
 
 function convertKelvinToFahrenheit(valueToConvert){

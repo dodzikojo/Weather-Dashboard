@@ -10,7 +10,7 @@
     integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-
+  <link rel="icon" id="favicon" href="./assets/images/favicon.png">
   <link rel="stylesheet" href="./assets/css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-  <title>Weather Dashboard</title>
+
+  <title id="pageTitle">Weather Dashboard</title>
 </head>
 
 <body>
@@ -67,8 +68,8 @@
           <div class="d-flex h-100 mr-2" id="mainWeatherForecast">
             <div id="" class="justify-content-center align-self-center image-container">
              
-              <p class="d-inline" id="temperature">2</p><span id="temperatureUnit" class="d-inline">°C</span>
-              <img id="mainWeatherImage" class="d-inline" src="assets/images/cloudy.png">
+              <p class="d-inline" id="temperature">2</p><span id="temperatureUnit" class="d-inline mr-3">°C</span>
+              <img id="mainWeatherImage" class="d-inline" src="">
             </div>
           </div>
           <div id="locationInfo" class="">
@@ -81,16 +82,16 @@
             </div>
             <div class="dateTimeInfo">
               <p id="currentDateTime" class="pl-0 d-inline">Sun 22, 17:00</p>
-              <p class="d-inline">•</p>
+              <!-- <p class="d-inline">•</p>
               <p id="lastUpdatedInfo" class="d-inline font-weight-light font-italic">
                 Updated over an hour ago
-              </p>
+              </p> -->
             </div>
 
             <hr style="margin-top: 8px; margin-bottom: 10px;">
             <div id="additionalInfo" class="d-inline">
               <p class="py-1 px-2 mt-0 mb-0 d-inline badge badge-pill badge-dark font-weight-light">Feels like: <span
-                  id="feelLikeValue">18.89°C</span></p>
+                  id="feelLikeValue">18.89</span></p>
 
               <p class="py-1 px-2 mt-0 mb-0 d-inline badge badge-pill badge-dark font-weight-light">Wind: <span
                   id="windValue">2.76 KPH</span></p>
@@ -106,7 +107,7 @@
           <div id="forecast">
             <div class="card bg-dark text-white shadow" id="forecastOne">
               <div class="card-body p-3">
-                <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
+                <img id="historyWeatherImage" class="" src="assets/images/01d.png">
                 <h5 id="historyWeatherDate" class="mb-1">Monday, 21st Jan</h5>
                 <hr class="py-0 mt-0 mb-1" id="historyWeatherSplitLine">
                 <div class="card-text d-inline forecastDetails">
@@ -118,7 +119,7 @@
             </div>
             <div class="card bg-dark text-white  shadow" id="forecastTwo">
               <div class="card-body p-3">
-                <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
+                <img id="historyWeatherImage" class="" src="assets/images/09d.png">
                 <h5 id="historyWeatherDate" class="mb-1">Tuesday, 22nd Jan</h5>
                 <hr class="py-0 mt-0 mb-1" id="historyWeatherSplitLine">
                 <div class="card-text d-inline forecastDetails">
@@ -130,7 +131,7 @@
             </div>
             <div class="card bg-dark text-white shadow" id="forecastThree">
               <div class="card-body p-3">
-                <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
+                <img id="historyWeatherImage" class="" src="assets/images/50n.png">
                 <h5 id="historyWeatherDate" class="mb-1">Wednesday, 23rd Jan</h5>
                 <hr class="py-0 mt-0 mb-1" id="historyWeatherSplitLine">
                 <div class="card-text d-inline forecastDetails">
@@ -142,7 +143,7 @@
             </div>
             <div class="card bg-dark text-white shadow" id="forecastFour">
               <div class="card-body p-3">
-                <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
+                <img id="historyWeatherImage" class="" src="assets/images/09n.png">
                 <h5 id="historyWeatherDate" class="mb-1">Thursday, 24th Jan</h5>
                 <hr class="py-0 mt-0 mb-1" id="historyWeatherSplitLine">
                 <div class="card-text d-inline forecastDetails">
@@ -154,7 +155,7 @@
             </div>
             <div class="card bg-dark text-white shadow" id="forecastFive">
               <div class="card-body p-3">
-                <img id="historyWeatherImage" class="" src="assets/images/cloudy.png">
+                <img id="historyWeatherImage" class="" src="assets/images/11n.png">
                 <h5 id="historyWeatherDate" class="mb-1">Friday, 25th Jan</h5>
                 <hr class="py-0 mt-0 mb-1" id="historyWeatherSplitLine">
                 <div class="card-text d-inline forecastDetails">
