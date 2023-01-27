@@ -24,12 +24,15 @@ let forecastWeatherDataArray = [];
 
 //Get previously saved city information and load it's weather data.
 $("document").ready(function () {
+    $("#weather-panel").fadeOut(200)
     getSetWeatherDataOnNoSelection()
 });
 
 
 
 let coordinatesToLocationInformation = function (lat, lon) {
+    $("#weather-panel").fadeOut(200)
+
     $.getJSON(openWeatherMapReverseGeocodingAPI, {
         lat: lat,
         lon: lon,
@@ -39,6 +42,7 @@ let coordinatesToLocationInformation = function (lat, lon) {
 }
 
 function successReturnedLocation(result) {
+
     var city = "";
     var state = "";
     var country = "";
@@ -67,18 +71,24 @@ function getJSONWeatherData(lat, lon) {
 function successFn(result) {
     mainWeatherData = result;
     forecastWeatherDataArray = [];
-
-
     result.list.forEach(element => {
         if (moment(element.dt_txt, "YYYY-MM-DD HH:mm:ss").format("hh:mm A").toString() === "12:00 PM") {
             forecastWeatherDataArray.push(element)
         }
     });
-
     updateHTMLElements(mainWeatherData);
     updateForecastHTMLElement(forecastWeatherDataArray)
+
+
+    counter = 0;
+    
+    $("#weather-panel").fadeIn(500)
+
 }
 
+function completion() {
+    // $(this).text("Animation complete")
+}
 
 var availableTags = [
     "Use Current Location",
@@ -107,8 +117,9 @@ function getLocation() {
 
 //Retrieves the position object and converts position data to location information.
 function showPosition(position) {
-    getJSONWeatherData(position.coords.latitude, position.coords.longitude)
     coordinatesToLocationInformation(position.coords.latitude, position.coords.longitude)
+    getJSONWeatherData(position.coords.latitude, position.coords.longitude)
+
 }
 // #endregion
 
@@ -153,7 +164,40 @@ function getWeatherDataFromCityCountryName(cityCountryArray, cities) {
             cityCountryArray.push(cities[index].lat)
             cityCountryArray.push(cities[index].lng)
             //save searched information to localstorage
-            localStorage.setItem("lastWeatherData", JSON.stringify(cityCountryArray));
+            let historicWeatherData = []
+            // let historicWeatherDataUpdated = []
+
+            historicWeatherData = localStorage.getItem("historicWeatherData");
+
+            console.log("this is historic: "+historicWeatherData)
+
+            if(historicWeatherData != null){
+                // historicWeatherData.push(cityCountryArray)
+                let parsedData = JSON.parse(historicWeatherData);
+                console.log("this is parsedData: "+parsedData)
+                if(parsedData.length == 6){
+                    console.log("it's 6!")
+                    historicWeatherData = historicWeatherData.splice(0, 0, cityCountryArray) //Add use current location option at index 0 - first item.
+
+                    console.log("historic data updated: "+historicWeatherData)
+                }
+                else{
+                    console.log("it's less than 6")
+                    historicWeatherData.push(cityCountryArray)
+                }
+            }
+            else{
+                console.log("it's l-----")
+                historicWeatherData = []
+                historicWeatherData.push(cityCountryArray)
+            }
+
+            console.log(historicWeatherData)
+
+           
+
+            console.log("setting item:")
+            localStorage.setItem("historicWeatherData", JSON.stringify(historicWeatherData));
             break; //No need to continue searching.
         }
 
@@ -164,7 +208,7 @@ function getWeatherDataFromCityCountryName(cityCountryArray, cities) {
 function getSetWeatherDataOnNoSelection() {
     let historicCity = localStorage.getItem("lastWeatherData");
     if (historicCity != null) {
-        getWeatherDataFromCityCountryName(JSON.parse(historicCity), cities)
+        // getWeatherDataFromCityCountryName(JSON.parse(historicCity), cities)
 
     }
     else {
@@ -223,24 +267,24 @@ function updateHTMLElements(mainWeatherData) {
 }
 
 
-function updateForecastHTMLElement(forecastWeatherDataArray){
+function updateForecastHTMLElement(forecastWeatherDataArray) {
     counter = 0;
     forecastWeatherDataArray.forEach(element => {
         ++counter
         let temp = element.main.temp.toFixed(0);
         let description = element.weather[0].description;
-        let windSpeed = element.wind.speed ;
+        let windSpeed = element.wind.speed;
         let humidity = element.main.humidity;
 
-        $("#forecast"+counter).empty();
-        
-        createForecaseCardElements("forecast"+counter, element.weather[0].icon,description, moment(element.dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd DD"), temp, windSpeed, humidity," °C", " KMPH")
-        
+        $("#forecast" + counter).empty();
+
+        createForecaseCardElements("forecast" + counter, element.weather[0].icon, description, moment(element.dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd DD"), temp, windSpeed, humidity, " °C", " KMPH")
+
     });
 }
 
 
-function createForecaseCardElements(forecastDivId, image,description, forecastDate, forecastTemp, forecastWind, forecastHumidity, tempUnit, windUnit) {
+function createForecaseCardElements(forecastDivId, image, description, forecastDate, forecastTemp, forecastWind, forecastHumidity, tempUnit, windUnit) {
     let cardBodyEl = $("<div>", {
         class: "card-body p-3"
     })
@@ -249,7 +293,7 @@ function createForecaseCardElements(forecastDivId, image,description, forecastDa
         class: "forecastWeatherImage",
         id: ""
     })
-    
+
 
     let forecastWeatherDate = $("<h5>", {
         class: "forecastWeatherDate mb-1"
@@ -295,7 +339,7 @@ function createForecaseCardElements(forecastDivId, image,description, forecastDa
         class: "forecastWindUnit d-inline"
     })
 
-    
+
 
     let forecastHumidityContainerEl = $("<p>", {
         class: "badge badge-pull badge-light mb-0 humidityContainer"
@@ -340,24 +384,24 @@ function createForecaseCardElements(forecastDivId, image,description, forecastDa
     forecastWindEl.appendTo(forecastWindContainerEl)
     forecastWindUnitEl.appendTo(forecastWindContainerEl)
 
-   
+
     // forecastHumidityTitleEl.appendTo(forecastDetailsEl)
     forecastHumidityEl.appendTo(forecastHumidityContainerEl)
     forecastHumidityUnitEl.appendTo(forecastHumidityContainerEl)
-   
+
 
     forecastWeatherDate.appendTo(cardBodyEl)
     forecastWeatherImgEl.appendTo(cardBodyEl)
     forecastWeatherDesc.appendTo(cardBodyEl)
-    
+
     forecastWeatherSplitLineEl.appendTo(cardBodyEl)
-    
+
     forecastDetailsEl.appendTo(cardBodyEl)
     forecastWindContainerEl.appendTo(cardBodyEl)
     forecastHumidityContainerEl.appendTo(cardBodyEl)
-    
 
-    cardBodyEl.appendTo($("#"+forecastDivId))
+
+    cardBodyEl.appendTo($("#" + forecastDivId))
 
 }
 
