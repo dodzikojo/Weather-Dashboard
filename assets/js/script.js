@@ -75,7 +75,6 @@ function successFn(result) {
         }
     });
 
-    console.log("Total number of items in forecastWeatherDataArray: "+forecastWeatherDataArray.length);
     updateHTMLElements(mainWeatherData);
     updateForecastHTMLElement(forecastWeatherDataArray)
 }
@@ -225,13 +224,10 @@ function updateHTMLElements(mainWeatherData) {
 
 
 function updateForecastHTMLElement(forecastWeatherDataArray){
-    console.log("Updating forecast element...");
     counter = 0;
     forecastWeatherDataArray.forEach(element => {
         ++counter
-        let temp = element.main.temp.toFixed();
-        // feelsLikeValueEl.text(mainWeatherData.list[0].main.feels_like.toFixed(0));
-        // mainDescriptionEl.text(mainWeatherData.list[0].weather[0].main);
+        let temp = element.main.temp.toFixed(0);
         let description = element.weather[0].description;
         let windSpeed = element.wind.speed ;
         let humidity = element.main.humidity;
@@ -239,21 +235,12 @@ function updateForecastHTMLElement(forecastWeatherDataArray){
         $("#forecast"+counter).empty();
         
         createForecaseCardElements("forecast"+counter, element.weather[0].icon,description, moment(element.dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd DD"), temp, windSpeed, humidity," °C", " KMPH")
-        // console.log(counter)
         
     });
 }
 
 
-// let forecastListArray = ["forecastOne", "forecastTwo", "forecastThree", ""]
-
-// createForecaseCardElements("forecast1", "assets/images/10d.png" , "Tuesday, 22nd Jan", "18.89", "18.89", "44", " °C", " KMPH")
-
 function createForecaseCardElements(forecastDivId, image,description, forecastDate, forecastTemp, forecastWind, forecastHumidity, tempUnit, windUnit) {
-
-   
-
-    
     let cardBodyEl = $("<div>", {
         class: "card-body p-3"
     })
@@ -263,8 +250,6 @@ function createForecaseCardElements(forecastDivId, image,description, forecastDa
         id: ""
     })
     
-    let breakLine1 = $("<br>")
-    let breakLine2 = $("<br>")
 
     let forecastWeatherDate = $("<h5>", {
         class: "forecastWeatherDate mb-1"
@@ -350,7 +335,6 @@ function createForecaseCardElements(forecastDivId, image,description, forecastDa
     forecastTempEl.appendTo(forecastDetailsEl)
     forecastTempUnitEl.appendTo(forecastDetailsEl)
 
-    // breakLine1.appendTo(forecastDetailsEl)
 
     // forecastWindTitleEl.appendTo(forecastDetailsEl)
     forecastWindEl.appendTo(forecastWindContainerEl)
