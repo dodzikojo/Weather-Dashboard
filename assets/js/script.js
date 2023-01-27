@@ -66,20 +66,18 @@ function getJSONWeatherData(lat, lon) {
 
 function successFn(result) {
     mainWeatherData = result;
-
+    forecastWeatherDataArray = [];
 
 
     result.list.forEach(element => {
-        // console.log(element.dt_txt)
-        // console.log(moment(element.dt_txt, "YYYY-MM-DD HH:mm:ss").format("hh:mm A"))
-        
         if (moment(element.dt_txt, "YYYY-MM-DD HH:mm:ss").format("hh:mm A").toString() === "12:00 PM") {
             forecastWeatherDataArray.push(element)
-            console.log(element)
         }
     });
 
+    console.log("Total number of items in forecastWeatherDataArray: "+forecastWeatherDataArray.length);
     updateHTMLElements(mainWeatherData);
+    updateForecastHTMLElement(forecastWeatherDataArray)
 }
 
 
@@ -226,11 +224,36 @@ function updateHTMLElements(mainWeatherData) {
 }
 
 
+function updateForecastHTMLElement(forecastWeatherDataArray){
+    console.log("Updating forecast element...");
+    counter = 0;
+    forecastWeatherDataArray.forEach(element => {
+        ++counter
+        let temp = element.main.temp.toFixed();
+        // feelsLikeValueEl.text(mainWeatherData.list[0].main.feels_like.toFixed(0));
+        // mainDescriptionEl.text(mainWeatherData.list[0].weather[0].main);
+        let description = element.weather[0].description;
+        let windSpeed = element.wind.speed ;
+        let humidity = element.main.humidity;
+
+        $("#forecast"+counter).empty();
+        
+        createForecaseCardElements("forecast"+counter, element.weather[0].icon,description, moment(element.dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd DD"), temp, windSpeed, humidity," °C", " KMPH")
+        // console.log(counter)
+        
+    });
+}
+
+
 // let forecastListArray = ["forecastOne", "forecastTwo", "forecastThree", ""]
 
-createForecaseCardElements("forecast1", "assets/images/10d.png" , "Tuesday, 22nd Jan", "18.89", "18.89", "44", " °C", " KMPH")
+// createForecaseCardElements("forecast1", "assets/images/10d.png" , "Tuesday, 22nd Jan", "18.89", "18.89", "44", " °C", " KMPH")
 
-function createForecaseCardElements(forecastDivId, image, forecastDate, forecastTemp, forecastWind, forecastHumidity, tempUnit, windUnit) {
+function createForecaseCardElements(forecastDivId, image,description, forecastDate, forecastTemp, forecastWind, forecastHumidity, tempUnit, windUnit) {
+
+   
+
+    
     let cardBodyEl = $("<div>", {
         class: "card-body p-3"
     })
@@ -245,6 +268,10 @@ function createForecaseCardElements(forecastDivId, image, forecastDate, forecast
 
     let forecastWeatherDate = $("<h5>", {
         class: "forecastWeatherDate mb-1"
+    })
+
+    let forecastWeatherDesc = $("<h6>", {
+        class: "forecastWeatherDesc mb-1"
     })
 
     let forecastWeatherSplitLineEl = $("<hr>", {
@@ -264,7 +291,11 @@ function createForecaseCardElements(forecastDivId, image, forecastDate, forecast
     })
 
     let forecastTempUnitEl = $("<p>", {
-        class: "forecastTempUnit d-inline"
+        class: "forecastTempUnit d-inline mr-2"
+    })
+
+    let forecastWindContainerEl = $("<p>", {
+        class: "badge badge-pull badge-light mr-2 mb-0 windContainer"
     })
 
     let forecastWindEl = $("<p>", {
@@ -279,6 +310,12 @@ function createForecaseCardElements(forecastDivId, image, forecastDate, forecast
         class: "forecastWindUnit d-inline"
     })
 
+    
+
+    let forecastHumidityContainerEl = $("<p>", {
+        class: "badge badge-pull badge-light mb-0 humidityContainer"
+    })
+
     let forecastHumidityTitleEl = $("<p>", {
         class: "py-0 m-0 d-inline"
     })
@@ -291,6 +328,8 @@ function createForecaseCardElements(forecastDivId, image, forecastDate, forecast
         class: "d-inline"
     })
 
+    setWeatherIcon(image, forecastWeatherImgEl)
+
     forecastTempTitleEl.text("Temp: ")
     forecastWindTitleEl.text("Wind: ")
     forecastHumidityTitleEl.text("Humidity: ")
@@ -299,33 +338,40 @@ function createForecaseCardElements(forecastDivId, image, forecastDate, forecast
     forecastWindUnitEl.text(windUnit)
 
 
-    forecastWeatherImgEl.attr("src", image)
+    // forecastWeatherImgEl.attr("src", image)
+    forecastWeatherDesc.text(description.charAt(0).toUpperCase() + description.slice(1))
     forecastWeatherDate.text(forecastDate)
     forecastTempEl.text(forecastTemp)
     forecastWindEl.text(forecastWind)
 
     forecastHumidityEl.text(forecastHumidity + "%")
 
-    forecastTempTitleEl.appendTo(forecastDetailsEl)
+    // forecastTempTitleEl.appendTo(forecastDetailsEl)
     forecastTempEl.appendTo(forecastDetailsEl)
     forecastTempUnitEl.appendTo(forecastDetailsEl)
 
-    breakLine1.appendTo(forecastDetailsEl)
+    // breakLine1.appendTo(forecastDetailsEl)
 
-    forecastWindTitleEl.appendTo(forecastDetailsEl)
-    forecastWindEl.appendTo(forecastDetailsEl)
-    forecastWindUnitEl.appendTo(forecastDetailsEl)
+    // forecastWindTitleEl.appendTo(forecastDetailsEl)
+    forecastWindEl.appendTo(forecastWindContainerEl)
+    forecastWindUnitEl.appendTo(forecastWindContainerEl)
 
-    breakLine2.appendTo(forecastDetailsEl)
    
-    forecastHumidityTitleEl.appendTo(forecastDetailsEl)
-    forecastHumidityEl.appendTo(forecastDetailsEl)
-    forecastHumidityUnitEl.appendTo(forecastDetailsEl)
+    // forecastHumidityTitleEl.appendTo(forecastDetailsEl)
+    forecastHumidityEl.appendTo(forecastHumidityContainerEl)
+    forecastHumidityUnitEl.appendTo(forecastHumidityContainerEl)
+   
 
-    forecastWeatherImgEl.appendTo(cardBodyEl)
     forecastWeatherDate.appendTo(cardBodyEl)
+    forecastWeatherImgEl.appendTo(cardBodyEl)
+    forecastWeatherDesc.appendTo(cardBodyEl)
+    
     forecastWeatherSplitLineEl.appendTo(cardBodyEl)
+    
     forecastDetailsEl.appendTo(cardBodyEl)
+    forecastWindContainerEl.appendTo(cardBodyEl)
+    forecastHumidityContainerEl.appendTo(cardBodyEl)
+    
 
     cardBodyEl.appendTo($("#"+forecastDivId))
 
