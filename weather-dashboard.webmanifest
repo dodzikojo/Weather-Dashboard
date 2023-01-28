@@ -1,0 +1,17 @@
+{
+    "name": "World Cities Weather Dashboard",
+    "short_name": "Weather Dashboard",
+    "description": "World weather application.",
+    "icons": [
+      {
+        "src": "assets/images/favicon.png",
+        "sizes": "32x32",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "index.html",
+    "display": "standalone",
+    "theme_color": "#343a40",
+    "background_color": "#343a40"
+  }
+  
