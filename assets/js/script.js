@@ -27,16 +27,12 @@ $("document").ready(function () {
     $("#weather-panel").fadeOut(200)
     getSetWeatherDataOnNoSelection()
 
-    if ($(window).width() < 600) {
-        $("#historyButtons").addClass("row")
-    }
-    else {
-        $("#historyButtons").removeClass("row")
-    }
-
+    addRemoveRow()
     applyContainer()
 });
 
+
+//Apply and Remove container type classes to element sections.
 function applyContainer() {
     if ($(window).width() < 1000) {
         $("#weatherSection").removeClass("container")
@@ -54,9 +50,19 @@ function applyContainer() {
     }
 }
 
+function addRemoveRow(){
+    if ($(window).width() < 600) {
+        $("#historyButtons").addClass("row")
+    }
+    else {
+        $("#historyButtons").removeClass("row")
+    }
+
+}
 
 $(window).resize(function () {
     applyContainer()
+    addRemoveRow()
 })
 
 
@@ -448,7 +454,6 @@ function createForecaseCardElements(forecastDivId, image, description, forecastD
 }
 
 
-
 function createHistoryCityButtons(cityName, cityLat, cityLong) {
     let historyButton = $("<button>", {
         id: cityName.trim(),
@@ -468,12 +473,4 @@ function createHistoryCityButtons(cityName, cityLat, cityLong) {
         getJSONWeatherData($(this).attr("latitude"), $(this).attr("longitude"))
     })
 
-}
-
-function convertKelvinToFahrenheit(valueToConvert) {
-    return ((valueToConvert - 273.15) * 1.8) + 32
-}
-
-function convertKelvinToCelsius(valueToConvert) {
-    return (valueToConvert - 273.15)
 }

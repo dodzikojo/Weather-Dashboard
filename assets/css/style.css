@@ -206,12 +206,12 @@ p.forecastTemp {
 
 
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 300px) and (orientation: portrait) {
+/* Extra small devices (phones, 300px and down) */
+@media only screen and (max-width: 300px)  {
     #forecast {
-        grid-template-columns: 100%;
+        grid-template-columns: 1fr;
         
-        grid-template-rows: auto auto auto auto auto;
+        grid-template-rows: auto auto auto auto auto auto;
         grid-template-areas:
             "one"
             "two"
@@ -233,7 +233,7 @@ p.forecastTemp {
 
 
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) and (min-width : 301px) {
     #forecast {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto auto auto auto;
