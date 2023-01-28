@@ -21,6 +21,23 @@ let pageTitleEl = $("#pageTitle");
 let mainWeatherDateTimeEl = $("#weatherDateTime");
 let mainWeatherData;
 let forecastWeatherDataArray = [];
+let availableTags = [
+    "Use Current Location",
+];
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'bottom-right',
+    color: 'black',
+    iconColor: 'red',
+    customClass: {
+        popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 1200,
+    timerProgressBar: true
+})
+
 
 //Get previously saved city information and load it's weather data.
 $("document").ready(function () {
@@ -29,6 +46,37 @@ $("document").ready(function () {
 
     addRemoveRow()
     applyContainer()
+});
+
+//Autocomplete event for the searchbar
+$("#searchBar").autocomplete({
+    source: availableTags,
+    minLength: 0,
+    select: function (event, ui) { //Gets the user's selection and checks if the user selected to get current location.
+        if (availableTags[0] == ui.item.value) {
+            getLocation()
+        }
+    }
+}).bind('focus', function () { $(this).autocomplete("search"); });
+
+//Keyup Event listener for search bar
+$("#searchBar").keyup(function (e) {
+    allPossibleCities = []
+    if ($("#searchBar").val().length >= 2) {
+        for (let index = 0; index < cities.length; index++) {
+
+            if (cities[index].name.toLowerCase() == $("#searchBar").val().toLowerCase() || cities[index].name.toLowerCase().includes($("#searchBar").val().toLowerCase())) {
+                allPossibleCities.push(cities[index].name + ", " + cities[index].country)
+            }
+        }
+    }
+
+    allPossibleCities.splice(0, 0, availableTags[0]) //Add use current location option at index 0 - first item.
+
+    $("#searchBar").autocomplete({
+        maxHeight: 10,
+        source: allPossibleCities.filter(onlyUnique).slice(0, 9)
+    });
 });
 
 
@@ -50,7 +98,8 @@ function applyContainer() {
     }
 }
 
-function addRemoveRow(){
+//Function to add Remove row class for historic buttons
+function addRemoveRow() {
     if ($(window).width() < 600) {
         $("#historyButtons").addClass("row")
     }
@@ -60,13 +109,14 @@ function addRemoveRow(){
 
 }
 
+//Resize window event listener
 $(window).resize(function () {
     applyContainer()
     addRemoveRow()
 })
 
 
-
+//Gets the location information based on Lat, Long  data.
 let coordinatesToLocationInformation = function (lat, lon) {
     $("#weather-panel").fadeOut(200)
 
@@ -78,8 +128,8 @@ let coordinatesToLocationInformation = function (lat, lon) {
 
 }
 
+//function to run when coordinatesToLocationInformation is successfull
 function successReturnedLocation(result) {
-
     var city = "";
     var state = "";
     var country = "";
@@ -96,6 +146,7 @@ function successReturnedLocation(result) {
 
 }
 
+//Get the openWeatherMap data based on lat, long coordinates.
 function getJSONWeatherData(lat, lon) {
     $.getJSON(openWeatherMapForecastAPI, {
         lat: lat,
@@ -105,6 +156,7 @@ function getJSONWeatherData(lat, lon) {
     }, successFn)
 }
 
+//function to run when getJSONWeatherData is successful
 function successFn(result) {
     mainWeatherData = result;
     forecastWeatherDataArray = [];
@@ -115,35 +167,8 @@ function successFn(result) {
     });
     updateHTMLElements(mainWeatherData);
     updateForecastHTMLElement(forecastWeatherDataArray)
-
-
-    counter = 0;
-
     $("#weather-panel").fadeIn(500)
-
 }
-
-function completion() {
-    // $(this).text("Animation complete")
-}
-
-var availableTags = [
-    "Use Current Location",
-];
-
-$("#searchBar").autocomplete({
-    source: availableTags,
-    minLength: 0,
-    select: function (event, ui) { //Gets the user's selection and checks if the user selected to get current location.
-        if (availableTags[0] == ui.item.value) {
-            getLocation()
-
-
-
-        }
-
-    }
-}).bind('focus', function () { $(this).autocomplete("search"); });
 
 
 // #region  Get current location
@@ -167,24 +192,47 @@ function showPosition(position) {
 function showError(error) {
     switch (error.code) {
         case error.PERMISSION_DENIED:
-            console.log("User denied the request for Geolocation.")
+            
+            Toast.fire({
+                width: 300,
+                padding: '0.45em',
+                icon: 'error',
+                title: 'Location request denied'
+            })
             getSetWeatherDataOnNoSelection()
             break;
         case error.POSITION_UNAVAILABLE:
-            console.log("Location information is unavailable.")
+            
+            Toast.fire({
+                width: 300,
+                padding: '0.45em',
+                icon: 'error',
+                title: 'Location information is unavailable'
+            })
             getSetWeatherDataOnNoSelection()
             break;
         case error.TIMEOUT:
-            console.log("The request to get user location timed out.")
+
+            Toast.fire({
+                width: 300,
+                padding: '0.45em',
+                icon: 'error',
+                title: 'Failed to get location'
+            })
             getSetWeatherDataOnNoSelection()
             break;
         case error.UNKNOWN_ERROR:
-            console.log("An unknown error occurred.")
+
+            Toast.fire({
+            width: 300,
+            padding: '0.45em',
+            icon: 'error',
+            title: 'Unable to get location'
+        })
             getSetWeatherDataOnNoSelection()
             break;
     }
 }
-
 
 
 //Submit event when a city is selected.
@@ -200,7 +248,7 @@ $("form").submit(function (event) {
     for (let index = 0; index < historicWeatherData.length; index++) {
         if (historicWeatherData[index].toString() === cityCountryArray.toString()) {
             let item = historicWeatherData[index];
-            historicWeatherData.splice(index,1)
+            historicWeatherData.splice(index, 1)
             historicWeatherData.unshift(item);
             alreadyExist = true;
 
@@ -218,10 +266,9 @@ $("form").submit(function (event) {
     //Create buttons
     $("#historyButtons").empty()
     createButtons(historicWeatherData)
-
-
 })
 
+//Uses the search result city information to find the matching location and request weather data.
 function getWeatherDataFromCityCountryName(cityCountryArray, cities) {
     for (let index = 0; index < cities.length; index++) {
         if (cities[index].name.toLowerCase() === cityCountryArray[0].toLowerCase().trim() && cities[index].country.toLowerCase() === cityCountryArray[1].toLowerCase().trim()) {
@@ -240,10 +287,6 @@ function getWeatherDataFromCityCountryName(cityCountryArray, cities) {
 //Get previously searched city or select a random city and show it's weather data.
 function getSetWeatherDataOnNoSelection() {
     let historicCity = localStorage.getItem("historicWeatherData");
-
-
-
-
     if (historicCity != null) {
 
         let historicData = JSON.parse(historicCity);
@@ -261,40 +304,24 @@ function getSetWeatherDataOnNoSelection() {
     }
 }
 
-function createButtons(data){
+//Creates buttons for historic weather data
+function createButtons(data) {
     for (let index = 0; index < data.length; index++) {
         createHistoryCityButtons(data[index][0], data[index][2], data[index][3])
     }
 }
 
-
+//Sets weather icon based on retreived data
 function setWeatherIcon(iconCode, iconImgEl) {
     iconImgEl.attr("src", "./././assets/images/" + iconCode + ".png")
 }
 
+//Sets the page Favicon based on retrieved weather data
 function setWeatherFavicon(iconCode, iconImgEl) {
     iconImgEl.attr("href", "./././assets/images/" + iconCode + ".png")
 }
 
-$("#searchBar").keyup(function (e) {
-    allPossibleCities = []
-    if ($("#searchBar").val().length >= 2) {
-        for (let index = 0; index < cities.length; index++) {
-
-            if (cities[index].name.toLowerCase() == $("#searchBar").val().toLowerCase() || cities[index].name.toLowerCase().includes($("#searchBar").val().toLowerCase())) {
-                allPossibleCities.push(cities[index].name + ", " + cities[index].country)
-            }
-        }
-    }
-
-    allPossibleCities.splice(0, 0, availableTags[0]) //Add use current location option at index 0 - first item.
-
-    $("#searchBar").autocomplete({
-        maxHeight: 10,
-        source: allPossibleCities.filter(onlyUnique).slice(0, 9)
-    });
-});
-
+//function to remove duplicated array items.
 function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
@@ -314,7 +341,7 @@ function updateHTMLElements(mainWeatherData) {
     setWeatherFavicon(mainWeatherData.list[0].weather[0].icon, faviconEl)
 }
 
-
+//Updates forecastHTML Elements
 function updateForecastHTMLElement(forecastWeatherDataArray) {
     counter = 0;
     forecastWeatherDataArray.forEach(element => {
@@ -331,7 +358,7 @@ function updateForecastHTMLElement(forecastWeatherDataArray) {
     });
 }
 
-
+//Create forecast card elements based on retrieved weather data
 function createForecaseCardElements(forecastDivId, image, description, forecastDate, forecastTemp, forecastWind, forecastHumidity, tempUnit, windUnit) {
     let cardBodyEl = $("<div>", {
         class: "card-body p-3"
@@ -386,7 +413,6 @@ function createForecaseCardElements(forecastDivId, image, description, forecastD
     let forecastWindUnitEl = $("<p>", {
         class: "forecastWindUnit d-inline"
     })
-
 
 
     let forecastHumidityContainerEl = $("<p>", {
@@ -453,7 +479,7 @@ function createForecaseCardElements(forecastDivId, image, description, forecastD
 
 }
 
-
+//Creates buttons for previously searched weather data
 function createHistoryCityButtons(cityName, cityLat, cityLong) {
     let historyButton = $("<button>", {
         id: cityName.trim(),
@@ -471,6 +497,8 @@ function createHistoryCityButtons(cityName, cityLat, cityLong) {
     historyButton.on("click", function (evt) {
         coordinatesToLocationInformation($(this).attr("latitude"), $(this).attr("longitude"))
         getJSONWeatherData($(this).attr("latitude"), $(this).attr("longitude"))
+
+
     })
 
 }
