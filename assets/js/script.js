@@ -26,7 +26,38 @@ let forecastWeatherDataArray = [];
 $("document").ready(function () {
     $("#weather-panel").fadeOut(200)
     getSetWeatherDataOnNoSelection()
+
+    if ($(window).width() < 600) {
+        $("#historyButtons").addClass("row")
+    }
+    else {
+        $("#historyButtons").removeClass("row")
+    }
+
+    applyContainer()
 });
+
+function applyContainer() {
+    if ($(window).width() < 1000) {
+        $("#weatherSection").removeClass("container")
+        $("#weatherSection").addClass("container-fluid")
+
+        $("#headerContainer").removeClass("container")
+        $("#headerContainer").addClass("container-fluid")
+    }
+    else {
+        $("#weatherSection").addClass("container")
+        $("#weatherSection").removeClass("container-fluid")
+
+        $("#headerContainer").addClass("container")
+        $("#headerContainer").removeClass("container-fluid")
+    }
+}
+
+
+$(window).resize(function () {
+    applyContainer()
+})
 
 
 
@@ -81,7 +112,7 @@ function successFn(result) {
 
 
     counter = 0;
-    
+
     $("#weather-panel").fadeIn(500)
 
 }
@@ -100,6 +131,9 @@ $("#searchBar").autocomplete({
     select: function (event, ui) { //Gets the user's selection and checks if the user selected to get current location.
         if (availableTags[0] == ui.item.value) {
             getLocation()
+
+
+
         }
 
     }
@@ -152,6 +186,34 @@ $("form").submit(function (event) {
     event.preventDefault();
     var cityCountryArray = $('#searchBar').val().split(', ');
     getWeatherDataFromCityCountryName(cityCountryArray, cities)
+
+    //save searched information to localstorage
+    let historicWeatherData = JSON.parse(localStorage.getItem("historicWeatherData")) || []
+    let alreadyExist = false;
+
+    for (let index = 0; index < historicWeatherData.length; index++) {
+        if (historicWeatherData[index].toString() === cityCountryArray.toString()) {
+            let item = historicWeatherData[index];
+            historicWeatherData.splice(index,1)
+            historicWeatherData.unshift(item);
+            alreadyExist = true;
+
+            break;
+        }
+    }
+    if (alreadyExist != true) {
+        if (historicWeatherData.length === 6) {
+            historicWeatherData.pop();
+
+        }
+        historicWeatherData.unshift(cityCountryArray);
+    }
+    localStorage.setItem("historicWeatherData", JSON.stringify(historicWeatherData));
+    //Create buttons
+    $("#historyButtons").empty()
+    createButtons(historicWeatherData)
+
+
 })
 
 function getWeatherDataFromCityCountryName(cityCountryArray, cities) {
@@ -163,41 +225,6 @@ function getWeatherDataFromCityCountryName(cityCountryArray, cities) {
             //Add lat and long to data before saving in localStorge
             cityCountryArray.push(cities[index].lat)
             cityCountryArray.push(cities[index].lng)
-            //save searched information to localstorage
-            let historicWeatherData = []
-            // let historicWeatherDataUpdated = []
-
-            historicWeatherData = localStorage.getItem("historicWeatherData");
-
-            console.log("this is historic: "+historicWeatherData)
-
-            if(historicWeatherData != null){
-                // historicWeatherData.push(cityCountryArray)
-                let parsedData = JSON.parse(historicWeatherData);
-                console.log("this is parsedData: "+parsedData)
-                if(parsedData.length == 6){
-                    console.log("it's 6!")
-                    historicWeatherData = historicWeatherData.splice(0, 0, cityCountryArray) //Add use current location option at index 0 - first item.
-
-                    console.log("historic data updated: "+historicWeatherData)
-                }
-                else{
-                    console.log("it's less than 6")
-                    historicWeatherData.push(cityCountryArray)
-                }
-            }
-            else{
-                console.log("it's l-----")
-                historicWeatherData = []
-                historicWeatherData.push(cityCountryArray)
-            }
-
-            console.log(historicWeatherData)
-
-           
-
-            console.log("setting item:")
-            localStorage.setItem("historicWeatherData", JSON.stringify(historicWeatherData));
             break; //No need to continue searching.
         }
 
@@ -206,16 +233,31 @@ function getWeatherDataFromCityCountryName(cityCountryArray, cities) {
 
 //Get previously searched city or select a random city and show it's weather data.
 function getSetWeatherDataOnNoSelection() {
-    let historicCity = localStorage.getItem("lastWeatherData");
-    if (historicCity != null) {
-        // getWeatherDataFromCityCountryName(JSON.parse(historicCity), cities)
+    let historicCity = localStorage.getItem("historicWeatherData");
 
+
+
+
+    if (historicCity != null) {
+
+        let historicData = JSON.parse(historicCity);
+        getWeatherDataFromCityCountryName(historicData[0], cities)
+
+        //Create buttons
+        $("#historyButtons").empty()
+        createButtons(historicData)
     }
     else {
         //Select a random city and display weather.
         let selectedCity = cities[Math.floor(Math.random() * cities.length)];
         coordinatesToLocationInformation(selectedCity.lat, selectedCity.lng)
         getJSONWeatherData(selectedCity.lat, selectedCity.lng)
+    }
+}
+
+function createButtons(data){
+    for (let index = 0; index < data.length; index++) {
+        createHistoryCityButtons(data[index][0], data[index][2], data[index][3])
     }
 }
 
@@ -257,7 +299,7 @@ function updateHTMLElements(mainWeatherData) {
     feelsLikeValueEl.text(mainWeatherData.list[0].main.feels_like.toFixed(0) + " °C");
     mainDescriptionEl.text(mainWeatherData.list[0].weather[0].main);
     secondaryDescriptionEl.text("(" + mainWeatherData.list[0].weather[0].description + ")");
-    windSpeedEl.text(mainWeatherData.list[0].wind.speed + " KMPH");
+    windSpeedEl.text(mainWeatherData.list[0].wind.speed + " km/h");
     humidityValueEl.text(mainWeatherData.list[0].main.humidity + " %");
     mainWeatherDateTimeEl.text(moment(mainWeatherData.list[0].dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd, MMM DD hh:mm A"));
 
@@ -278,7 +320,7 @@ function updateForecastHTMLElement(forecastWeatherDataArray) {
 
         $("#forecast" + counter).empty();
 
-        createForecaseCardElements("forecast" + counter, element.weather[0].icon, description, moment(element.dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd DD"), temp, windSpeed, humidity, " °C", " KMPH")
+        createForecaseCardElements("forecast" + counter, element.weather[0].icon, description, moment(element.dt_txt, "YYYY-MM-DD HH:mm:ss").format("dddd DD"), temp, windSpeed.toFixed(1), humidity, " °C", " km/h")
 
     });
 }
@@ -402,6 +444,29 @@ function createForecaseCardElements(forecastDivId, image, description, forecastD
 
 
     cardBodyEl.appendTo($("#" + forecastDivId))
+
+}
+
+
+
+function createHistoryCityButtons(cityName, cityLat, cityLong) {
+    let historyButton = $("<button>", {
+        id: cityName.trim(),
+        class: "btn btn-dark my-1"
+    })
+
+    historyButton.attr("type", "button")
+    historyButton.attr("latitude", cityLat);
+    historyButton.attr("Longitude", cityLong);
+
+    historyButton.text(cityName)
+
+    historyButton.appendTo($("#historyButtons"))
+
+    historyButton.on("click", function (evt) {
+        coordinatesToLocationInformation($(this).attr("latitude"), $(this).attr("longitude"))
+        getJSONWeatherData($(this).attr("latitude"), $(this).attr("longitude"))
+    })
 
 }
 

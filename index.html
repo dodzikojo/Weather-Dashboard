@@ -25,7 +25,7 @@
 <body>
   <header id="header-bar" class="">
     <nav class="navbar shadow-lg navbar-expand-lg navbar-light bg-dark">
-      <div class="container d-flex">
+      <div id="headerContainer" class="container d-flex">
 
         <a id="navbar-title" class="navbar-brand text-light my-0">Weather Dashboard</a>
         <button class="navbar-toggler bg-light" type="button" data-toggle="collapse"
@@ -46,25 +46,12 @@
   </header>
 
   <!-- max-width for ultra wide resolutions -->
-  <div class="container">
+  <div id="weatherSection" class="">
     <div class="row">
-      <div class="mx-auto row btn-group col-12 my-2" id="historyButtons">
-
-        <button type="button" class="btn btn-dark my-1">Berlin <span
-            class="badge badge-light font-weight-bold">6°C</span></button>
-        <button type="button" class="btn btn-dark my-1">Paris <span
-            class="badge badge-light font-weight-bold">8°C</span></button>
-        <button type="button" class="btn btn-dark my-1">Edinburgh <span
-            class="badge badge-light font-weight-bold">-2°C</span></button>
-        <button type="button" class="btn btn-dark my-1">Madrid <span
-            class="badge badge-light font-weight-bold">12°C</span></button>
-        <button type="button" class="btn btn-dark my-1">Birmingham <span
-            class="badge badge-light font-weight-bold">6°C</span></button>
-        <button type="button" class="btn btn-dark my-1">London <span
-            class="badge badge-light font-weight-bold">18°C</span></button>
+      <div class="mx-auto  btn-group col-12 my-2" id="historyButtons">
       </div>
 
-      <div id="weather-panel" class="col-12" >
+      <div id="weather-panel" class="col-12">
         <section id="mainWeatherDash" class="p-2 rounded  shadow-lg">
           <div class="d-flex h-100 mr-2" id="mainWeatherForecast">
             <div id="" class="justify-content-center align-self-center image-container ml-sm-3">

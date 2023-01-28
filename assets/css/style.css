@@ -22,10 +22,29 @@ body {
 
 #historyButtons {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     font-family: 'Montserrat', sans-serif;
 
 }
+
+
+#historyButtons>button {
+
+    /* width: 180px; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-color: #474f57;
+    border-width: 1px;
+
+}
+
+#historyButtons:last-child {
+
+    border-width: 0px 0px 0px 0px !important;
+
+}
+
 
 #navbarSupportedContent {
     flex-grow: unset;
@@ -43,14 +62,6 @@ body {
 }
 
 
-#historyButtons>button {
-
-    width: 180px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-}
 
 /* #mainWeatherForecast {
     display: grid;
@@ -246,12 +257,11 @@ p.forecastTemp {
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
     #forecast {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: auto auto auto auto auto;
         grid-template-areas:
-            "one two"
-            "three four"
-            "five six";
+            "one two three"
+            "four five six";
     }
 
     #mainWeatherDash {
