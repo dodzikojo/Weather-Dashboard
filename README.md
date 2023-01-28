@@ -1,5 +1,5 @@
 # Weather Dashboard
-The responsive weather web application allows users to search for the current weather in any city around the world. The app also includes a feature that allows users to save the last 6 cities searched, making it easy for users to quickly access the weather information for their most frequently searched locations. Additionally, the app also provides weather information for the user's current location, making it easy to know what to expect when they step outside.
+This responsive weather web application allows users to search for the current weather in any city around the world. The app also includes a feature that saves the last 6 cities searched, making it easy for users to quickly access the weather information for their most frequently searched locations. Additionally, the app also provides weather information for the user's current location, making it easy to know what to expect when they step outside.
 
 ## Preview
 [Live Preview Weather Dashbaord](https://dodzikojo.github.io/Weather-Dashboard/ "Live Preview")
@@ -22,4 +22,4 @@ The responsive weather web application allows users to search for the current we
   * The user should be able to get the weather for their current location.
 
 ## UI Preview
-<img src="assets/preview/preview.gif" alt="Weather Dashboard" width="800"/>
+<img src="assets/preview/preview.gif" alt="Weather Dashboard" width="900"/>
