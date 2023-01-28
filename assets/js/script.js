@@ -192,7 +192,7 @@ function showPosition(position) {
 function showError(error) {
     switch (error.code) {
         case error.PERMISSION_DENIED:
-            
+
             Toast.fire({
                 width: 300,
                 padding: '0.45em',
@@ -202,7 +202,7 @@ function showError(error) {
             getSetWeatherDataOnNoSelection()
             break;
         case error.POSITION_UNAVAILABLE:
-            
+
             Toast.fire({
                 width: 300,
                 padding: '0.45em',
@@ -224,11 +224,11 @@ function showError(error) {
         case error.UNKNOWN_ERROR:
 
             Toast.fire({
-            width: 300,
-            padding: '0.45em',
-            icon: 'error',
-            title: 'Unable to get location'
-        })
+                width: 300,
+                padding: '0.45em',
+                icon: 'error',
+                title: 'Unable to get location'
+            })
             getSetWeatherDataOnNoSelection()
             break;
     }
@@ -239,33 +239,39 @@ function showError(error) {
 $("form").submit(function (event) {
     event.preventDefault();
     var cityCountryArray = $('#searchBar').val().split(', ');
-    getWeatherDataFromCityCountryName(cityCountryArray, cities)
+    if ($('#searchBar').val().toLowerCase() == availableTags[0].toLocaleLowerCase()) {
 
-    //save searched information to localstorage
-    let historicWeatherData = JSON.parse(localStorage.getItem("historicWeatherData")) || []
-    let alreadyExist = false;
-
-    for (let index = 0; index < historicWeatherData.length; index++) {
-        if (historicWeatherData[index].toString() === cityCountryArray.toString()) {
-            let item = historicWeatherData[index];
-            historicWeatherData.splice(index, 1)
-            historicWeatherData.unshift(item);
-            alreadyExist = true;
-
-            break;
-        }
     }
-    if (alreadyExist != true) {
-        if (historicWeatherData.length === 6) {
-            historicWeatherData.pop();
+    else {
+        getWeatherDataFromCityCountryName(cityCountryArray, cities)
 
+        //save searched information to localstorage
+        let historicWeatherData = JSON.parse(localStorage.getItem("historicWeatherData")) || []
+        let alreadyExist = false;
+
+        for (let index = 0; index < historicWeatherData.length; index++) {
+            if (historicWeatherData[index].toString() === cityCountryArray.toString()) {
+                let item = historicWeatherData[index];
+                historicWeatherData.splice(index, 1)
+                historicWeatherData.unshift(item);
+                alreadyExist = true;
+
+                break;
+            }
         }
-        historicWeatherData.unshift(cityCountryArray);
+        if (alreadyExist != true) {
+            if (historicWeatherData.length === 6) {
+                historicWeatherData.pop();
+
+            }
+            historicWeatherData.unshift(cityCountryArray);
+        }
+        localStorage.setItem("historicWeatherData", JSON.stringify(historicWeatherData));
+        //Create buttons
+        $("#historyButtons").empty()
+        createButtons(historicWeatherData)
     }
-    localStorage.setItem("historicWeatherData", JSON.stringify(historicWeatherData));
-    //Create buttons
-    $("#historyButtons").empty()
-    createButtons(historicWeatherData)
+
 })
 
 //Uses the search result city information to find the matching location and request weather data.
