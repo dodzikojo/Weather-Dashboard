@@ -7,7 +7,6 @@ This responsive weather web application allows users to search for the current w
 [Live Preview - Weather Dashbaord](https://dodzikojo.github.io/Weather-Dashboard/ "Live Preview")
 
 ## Project Requirements
----
 * When a user searches for a city they are presented with current and future conditions for that city and that city is added to the search history
   * When a user views the current weather conditions for that city they are presented with:
     * The city name
@@ -25,7 +24,6 @@ This responsive weather web application allows users to search for the current w
   * The user should be able to get the weather for their current location.
 
 ## Notes
----
 ### Node.js Implementation
 I explored and implemented the use of Node.js for the first on a project. Node.js provided the functionality to retrieve a collection of over 14,000 cities world wide.  This allows the application to show a list of cities based on the values the user enters during the search.
 
